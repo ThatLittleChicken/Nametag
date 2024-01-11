@@ -9,4 +9,7 @@ Notes for CS 260
 - `git status` gets status
 - `git pull` incorporates changes from a remote repo into the current working dir 
 - `git merge` merges branches / resolve divergence
+- `git diff HEAD HEAD~1` compares two commit; `~1` refers to 1 earlier
+- `git branch [branch name]` creates a branch (effectively a pointer) to a commit
+- `git checkout [branch name]` changes working dir to the branch
 - `git reset --hard [sha]` does a hard rollback back to a specific commit
