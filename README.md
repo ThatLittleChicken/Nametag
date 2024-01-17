@@ -6,10 +6,16 @@ A CS 260's startup project
 Just met someone and asked they ask you for your number or contact info but end up awkwardly repeating it and eventually typing it for them? The Name Tag application will easily solve this problem! Just pull out your unique QR code and when they scan it, they will securely get your contact info you want to share all in one place. No more awkward situations!
 
 ### Design
+<!-- 
 ![Name Tag customization](/design_images/main.png)
 ![User Login](/design_images/auth.png)
 ![Share my Name Tag](/design_images/share.png)
-![Name Tag](/design_images/tag.png)
+![Name Tag](/design_images/tag.png) 
+-->
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/main.png" width="70">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/auth.png" width="70">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/share.png" width="70">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/tag.png" width="70">
 
 ### Key features
 - Secure login over HTTPS
