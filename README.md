@@ -24,11 +24,11 @@ Just met someone and they asked you for your number or contact info but ended up
 - Automatically generates QR code for "name tag"
 - Access people's "name tag" through custom link
 - Information are displayed real time
-- TBD: Custom link regenerates after a period of time for privacy
+- TBD: Custom link and QR code regenerates after a period of time for privacy
 
 ### Technologies
 The required technologies are used for:
-- HTML - Uses HTML struturing for application. Four HTML pages: Login, Customizing "name tag", Sharing "name tag" and a page to View "name tag".
+- HTML - Uses HTML structuring for application. Four HTML pages: Login, Customizing "name tag", Sharing "name tag" and a page to View "name tag".
 - CSS - Application styling using CSS for tidy and user-friendly look.
 - Javascript - Provides login, saving user information, displaying "name tag" info, backend endpoint calls.
 - Web service -  Backend service with endpoints for:
