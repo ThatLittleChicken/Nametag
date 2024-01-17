@@ -3,7 +3,7 @@ A CS 260's startup project
 
 ## Specification Deliverable
 ### Elevator pitch
-Just met someone and asked they ask you for your number or contact info but end up awkwardly repeating it and eventually typing it for them? The Name Tag application will easily solve this problem! Just pull out your unique QR code and when they scan it, they will securely get your contact info you want to share all in one place. No more awkward situations!
+Just met someone and they asked you for your number or contact info but ended up awkwardly repeating it and eventually typing it for them? The Name Tag application will easily solve this problem! Just pull out your unique QR code and when they scan it, they will securely get your contact info you want to share all in one place. No more awkward situations!
 
 ### Design
 <!-- 
