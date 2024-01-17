@@ -12,10 +12,10 @@ Just met someone and asked they ask you for your number or contact info but end 
 ![Share my Name Tag](/design_images/share.png)
 ![Name Tag](/design_images/tag.png) 
 -->
-<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/main.png" width="70">
-<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/auth.png" width="70">
-<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/share.png" width="70">
-<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/tag.png" width="70">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/main.png" width="600">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/auth.png" width="600">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/share.png" width="600">
+<img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/tag.png" width="600">
 
 ### Key features
 - Secure login over HTTPS
