@@ -2,7 +2,7 @@
 A CS 260's startup project
 
 ## Specification Deliverable
-### Elevator pitch
+### Elevator Pitch
 Just met someone and they asked you for your number or contact info but ended up awkwardly repeating it and eventually typing it for them? The Name Tag application will easily solve this problem! Just pull out your unique QR code and when they scan it, they will securely get your contact info you want to share all in one place. No more awkward situations!
 
 ### Design
@@ -17,7 +17,7 @@ Just met someone and they asked you for your number or contact info but ended up
 <img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/share.png" width="600">
 <img src="https://github.com/ThatLittleChicken/startup/blob/main/design_images/tag.png" width="600">
 
-### Key features
+### Key Features
 - Secure login over HTTPS
 - Ability for user to customize information showed in "name tag"
 - Name and contact info are persistently stored
@@ -39,3 +39,12 @@ The required technologies are used for:
 - Database/Login - Credentials, names and contact info are securely saved in Database. Users must sign up to create a "name tag".
 - WebSockets - As users update their information, the updates are sent to users viewing their "name tag".
 - React - Application will be ported to React framework. Dynamically create custom link for all "name tags".
+
+## HTML Deliverable
+This deliverable is built and structured using HTML.
+- HTML pages - 4 pages for login, tag customization, sharing and viewing.
+- Links - The login page automatically links to the user's tag customization. The navbar links to the user's tag sharing page and the QR code will link to the public view of a person's tag.
+- Text - Textual description and context are provided for input and elements.
+- Images - The QR codes are images to share a person's tag (will eventually be generated).
+- DB/Login - The user's tag info are saved to the DB. Input box and submit button for login. 
+- Websocket - The info on the public view of a person's tag and the link to it is updated realtime.
