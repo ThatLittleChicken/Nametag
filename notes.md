@@ -13,6 +13,8 @@ Notes for CS 260
 - `git branch [branch name]` creates a branch (effectively a pointer) to a commit
 - `git checkout [branch name]` changes working dir to the branch
 - `git reset --hard [sha]` does a hard rollback back to a specific commit
+- `git commit --amend` Edit last commit message
+- `git push --force-with-lease` Force push the last commit which overrides the last push if no new commits (unless newer commits present by someone else on remote)
 
 ## Using AWS
 Server public IP: `34.203.16.245`
