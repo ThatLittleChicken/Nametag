@@ -1,3 +1,15 @@
 main {
     flex: 1 calc(100vh - 57px);
 }
+
+h1 {
+    margin-top: 72px !important;
+}
+
+div.progress {
+    margin-bottom: 72px !important;
+}
+
+.flex-even {
+    flex: 1;
+}
