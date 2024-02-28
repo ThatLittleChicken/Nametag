@@ -5,38 +5,57 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="share.css">
+        <link 
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+            crossorigin="anonymous"
+        >
     </head>
-    <body>
-        <header>
-            <!--Navbar-->
-            <nav>
-                <a href="#" class="">Name Tag</a>
-                <menu>
-                    <li><a href="mytag.html">My Tag</a></li>
-                    <li><a href="share.html">Share</a></li>
+    <body class="d-flex flex-column">
+        <!--Navbar-->
+        <header class="container-fluid">
+            <nav class="navbar fixed-top py-3" >
+                <a href="#" class="navbar-brand ps-4">Name Tag</a>
+                <menu class="navbar-nav m-0 d-flex flex-row flex-grow-1 list-unstyled">
+                    <li class="nav-item px-2">
+                        <a href="mytag.html" class="nav-link">My Tag</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a href="share.html" class="nav-link">Share</a>
+                    </li>
                 </menu>
             </nav>
-            <hr/>
         </header>
 
-        <main>
+        <main class="d-flex flex-column justify-content-around ">
             <!--Share Content-->
             <h1>Person's Name Tag</h1>
             <p>3rd party service calls placeholder - QR generation. <a href="tag.html">Click here to go to tag (The page the QR code brings)</a></p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png?20200615212723" alt="Name Tag Link"></img>
+            <div class="container d-flex justify-content-center align-items-center">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Rickrolling_QR_code.png?20200615212723" alt="Name Tag Link" class="border rounded p-5 mx-5 mb-5 col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-8 col-10 mx-auto"></img>
+            </div>
             <button onclick="">Copy Link</button>
             <h2>Regenerating in...</h2>
             <p>Websocket data placeholder - Realtime link regeneration</p>
-            <progress value="70" max="100"></progress>
+            <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 25%"></div>
+            </div>
         </main>
 
-        <footer>
-            <hr/>
-            <span class="">Gent Yong</span>
-            <a href="https://github.com/ThatLittleChicken/Nametag">GitHub</a>
+        <footer class="container-fluid border-top" style="background-color: #e3f2fd;">
+            <div class="mx-4 py-3">
+                <span>Gent Yong</span>
+                <a href="https://github.com/ThatLittleChicken/Nametag" class="float-end">GitHub</a>
+            </div>
         </footer>
 
         <script src="" async defer></script>
+        <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+            crossorigin="anonymous">
+        </script>
     </body>
 </html>
