@@ -48,3 +48,12 @@ This deliverable is built and structured using HTML.
 - Images - The QR codes are images to share a person's tag (will eventually be generated).
 - DB/Login - The user's tag info are saved to the DB. Input box and submit button for login. 
 - Websocket - The info on the public view of a person's tag and the link to it is updated realtime.
+
+## CSS Deliverable
+This deliverable is stylized using CSS and Bootstrap.
+- Header, footer, and main content body
+- Navigation elements - Navigation is simple and intuitive while being good looking
+- Responsive to window resizing - The application is highly dynamic and looks great on all windows sizes
+- Application elements - Uses of whitespace and borders to give distinct separation
+- Application text content - Consistent fonts and clear hierarchy 
+- Application images - Images are dynamically sized
