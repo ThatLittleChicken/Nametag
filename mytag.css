@@ -2,7 +2,7 @@
     height: calc(100vh - 57px - 73px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767.98px) {
     .overflow-y-scroll {
         max-height: calc((100vh - 57px - 73px)/2);
     }
