@@ -5,68 +5,102 @@
         <title>Name Tag | Login</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="mytag.css">
+        <link 
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
+            rel="stylesheet" 
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
+            crossorigin="anonymous"
+        >
     </head>
-    <body>
-        <header>
-            <!--Navbar-->
-            <nav>
-                <a href="#" class="">Name Tag</a>
-                <menu>
-                    <li><a href="mytag.html">My Tag</a></li>
-                    <li><a href="share.html">Share</a></li>
+    <body class="d-flex flex-column">
+        <!--Navbar-->
+        <header class="border-bottom">
+            <nav class="navbar py-3" >
+                <a href="#" class="navbar-brand ps-4">Name Tag</a>
+                <menu class="navbar-nav m-0 d-flex flex-row flex-grow-1 list-unstyled">
+                    <li class="nav-item px-2">
+                        <a href="mytag.html" class="nav-link">My Tag</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a href="share.html" class="nav-link">Share</a>
+                    </li>
                 </menu>
             </nav>
-            <hr/>
         </header>
 
-        <main>
-            <div>
-                <p>Logged in as: <span>John Doe (Username display placeholder)</span></p>
-                <p>WebSocket data placeholder - Stores/updates info below in realtime</p>
-                <form>
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" value="">
 
-                    <label for="phone">Phone Number</label>
-                    <input type="text" name="phone" id="phone" value="">
+        <main class="container mw-100">
+            <div class="row">
+                <div class="overflow-y-scroll col-md-5 col-12 border-end">
+                    <p class="m-3 fs-5">Logged in as: <span>John Doe (Username display placeholder)</span></p>
+                    <p class="m-3">WebSocket data placeholder - Stores/updates info below in realtime</p>
+                    <form class="row m-3 g-3">
+                        <div class="col-12">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" name="name" id="name" value="" class="form-control">
+                        </div>
 
-                    <label>Social Media</label>
-                    <label for="insta">Instagram</label>
-                    <input type="text" name="insta" id="insta" value="">
-                    <label for="fb">Facebook</label>
-                    <input type="text" name="fb" id="fb" value="">
-                    <label for="linkedin">LinkedIn</label>
-                    <input type="text" name="linkedin" id="linkedin" value="">
-                    <label for="others">Others</label>
-                    <input type="text" name="others" id="others" value="">
+                        <div class="col-12">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="text" name="phone" id="phone" value="" class="form-control">
+                        </div>
 
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" value="">
-                </form>
-            </div>
-            <hr/>
-            <div>
-                <p>Name Tag</p>
-                <div>
-                    <p>Database data placeholder - person info below</p>
-                    <h1>John Doe</h1>
-                    <h2>800 123 4567</h2>
-                    <ul>
-                        <li>Instagram: @john_doe</li>
-                        <li>Twitter: @john_doe</li>
-                    </ul>
-                    <p>johndoe@gmail.com</p>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" name="email" id="email" value="" class="form-control">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="insta" class="form-label">Instagram</label>
+                            <input type="text" name="insta" id="insta" value="" class="form-control">
+                        </div>
+                        <div>
+
+                        </div>
+                        <div class="col-12">
+                            <label for="fb" class="form-label">Facebook</label>
+                            <input type="text" name="fb" id="fb" value="" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label for="linkedin" class="form-label">LinkedIn</label>
+                            <input type="text" name="linkedin" id="linkedin" value="" class="form-control">
+                        </div>
+                        <div class="col-12">
+                            <label for="others" class="form-label">Other Social Media</label>
+                            <input type="text" name="others" id="others" value="" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-md-7 d-flex flex-column align-items-center justify-content-center overflow-y-scroll">
+                    <div class="container">
+                        <div class="border rounded p-5 m-3 col-xxl-6 col-xl-7 col-lg-8 col-md-10 col-sm-10 mx-auto">
+                            <p class="">Database data placeholder - person info below</p>
+                            <h1 class="">John Doe</h1>
+                            <h2 class="=">800 123 4567</h2>
+                            <ul class="">
+                                <li>Instagram: @john_doe</li>
+                                <li>Twitter: @john_doe</li>
+                            </ul>
+                            <p class="">johndoe@gmail.com</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
 
-        <footer>
-            <hr/>
-            <span class="">Gent Yong</span>
-            <a href="https://github.com/ThatLittleChicken/Nametag">GitHub</a>
+        <footer class="container-fluid border-top" style="background-color: #e3f2fd;">
+            <div class="mx-4 py-3">
+                <span>Gent Yong</span>
+                <a href="https://github.com/ThatLittleChicken/Nametag" class="float-end">GitHub</a>
+            </div>
         </footer>
 
         <script src="" async defer></script>
+        <script 
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+            crossorigin="anonymous">
+        </script>
     </body>
 </html>
