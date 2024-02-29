@@ -3,5 +3,5 @@ body {
 }
 
 main {
-    flex: 1 calc(100vh - 57px);
+    flex: 1 calc(100dvh - 57px);
 }

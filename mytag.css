@@ -1,15 +1,15 @@
 .overflow-y-scroll {
-    height: calc(100vh - 57px - 73px);
+    height: calc(100dvh - 57px - 73px);
 }
 
 @media (max-width: 767.98px) {
     .overflow-y-scroll {
-        max-height: calc((100vh - 57px - 73px)/2);
+        max-height: calc((100dvh - 57px - 73px)/2);
     }
     .border-end {
         border-bottom: 1px solid #e9ecef;
     }
     div.container {
-        height: calc((100vh - 57px - 73px)/2);
+        height: calc((100dvh - 57px - 73px)/2);
     }
 }
