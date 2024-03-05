@@ -36,6 +36,7 @@ login.addEventListener("click", (e) => {
         } else if (!loginMap.some((user) => user[0] == username && user[1] == password)) {
             alert("Incorrect password");
         } else if (loginMap.some((user) => user[0] == username && user[1] == password)) {
+            sessionStorage.setItem('user', JSON.stringify(username));
             alert("Successfully logged in");
             window.location.replace("mytag.html");
         }
