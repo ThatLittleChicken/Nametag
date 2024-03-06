@@ -1,5 +1,10 @@
 //Get current user from session storage
-let user = JSON.parse(sessionStorage.getItem('user')) ?? 'Not logged in';
+if (sessionStorage.getItem('user')){
+    var user = JSON.parse(sessionStorage.getItem('user'));
+} else {
+    alert("Please login to continue");
+    window.location.replace("index.html");
+}
 
 document.getElementById('user').textContent = user;
 
