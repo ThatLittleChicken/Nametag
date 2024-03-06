@@ -2,7 +2,7 @@ const signup = document.getElementById("signB");
 const login = document.getElementById("loginB");
 
 let loginMap = localStorage.getItem('loginMap') ?
-JSON.parse(localStorage.getItem('loginMap')) : [[]];
+JSON.parse(localStorage.getItem('loginMap')) : [];
 
 
 signup.addEventListener("click", (e) => {
