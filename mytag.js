@@ -1,13 +1,22 @@
+//Get current user from session storage
 let user = JSON.parse(sessionStorage.getItem('user')) ?? 'Not logged in';
 
 document.getElementById('user').textContent = user;
 
+//Get user data from local storage
 let allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
 
 if (!allUserData[user]) {
     allUserData[user] = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
+} else {
+    for (let key in allUserData[user]) {
+        let el = document.getElementById(key);
+        el.value = allUserData[user][key];
+        updateField(el,key);
+    }
 }
 
+//Update user data every update
 let inputIdArray = ['name','phone','email','insta','fb','x','linkedin','others'];
 
 inputIdArray.forEach((id) => {
@@ -15,7 +24,7 @@ inputIdArray.forEach((id) => {
     [ "input", "keydown", "keyup", "drop", "focusout" ].forEach(function(event) {
         el.addEventListener(event, () => {
             updateField(el,id);
-            allUserData[user][id] = document.getElementById(id + 'F').textContent;
+            allUserData[user][id] = document.getElementById(id).value;
             localStorage.setItem('allUserData', JSON.stringify(allUserData));
         });
     });
@@ -37,7 +46,6 @@ function updateField(el,id){
         addList(el.value,id);
     }
     elF.textContent = socialName(el.value,id);
-    
 }
 
 function socialName(text, id) {
@@ -63,6 +71,7 @@ function socialName(text, id) {
     return text;
 }
 
+//Add list to ul for socials
 const ul = document.querySelector('ul');
 
 function addList(text,id){
