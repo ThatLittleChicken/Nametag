@@ -12,6 +12,8 @@ signup.addEventListener("click", (e) => {
 
     if (username == "" || password == "") {
         alert("Please enter username and password");
+    } else if (password.length < 8) {
+        alert("Password must be at least 8 characters long");
     } else {
         if (loginMap.some((user) => user[0] == username)) {
             alert("Username already exists");
