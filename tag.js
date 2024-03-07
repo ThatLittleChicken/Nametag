@@ -1,8 +1,8 @@
 //Data placeholder
-let user = 'john_doe';
+let user = JSON.parse(sessionStorage.getItem('user')) ?? 'john_doe';
 
 let allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
-allUserData[user] = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
+allUserData[user] ? {} : allUserData[user] = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
 
 //Show user data for tag
 for (let key in allUserData[user]) {
