@@ -57,3 +57,10 @@ This deliverable is stylized using CSS and Bootstrap.
 - Application elements - Uses of whitespace and borders to give distinct separation
 - Application text content - Consistent fonts and clear hierarchy 
 - Application images - Images are dynamically sized
+
+## JavaScript Deliverable
+This deliverable implemented JavaScript, the application works by storing in local storage. Placeholder for future technologies were also added.
+- Login - Sign up button stores login info and log in button sends user to MyTag page.
+- Database - Stores user info for tag and retrieves them when on launch. Data is stored on local storage and will be replaced with the database.
+- WebSocket - setInterval periodically counts down for share link and updates user info data on tag page. This will be replaced with WebSocket.
+- Application logic - The MyTag preview changes based on new input. Share page links to Tag page and gets user info, displaying it.
