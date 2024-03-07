@@ -4,15 +4,34 @@ let user = JSON.parse(sessionStorage.getItem('user')) ?? 'john_doe';
 let allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
 allUserData[user] ? {} : allUserData[user] = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
 
-//Show user data for tag
-for (let key in allUserData[user]) {
-    let elF = document.getElementById(`${key}F`);
-    elF.textContent = socialName(allUserData[user][key],`${key}F`);
+setInterval(() => {
+    allUserData[user].name = `${randomString(Math.random()*10)} ${randomString(Math.random()*10)}`;
+    showUserData();
+}, 1000);
 
-    if(elF && elF.tagName == "LI" && allUserData[user][key] == "") {
-        elF.remove();
-    } else if (!elF && allUserData[user][key] != ""){
-        addList(el.value,id);
+function randomString(length) {
+    let result = '';
+    const characters = 'abcdefghijklmnopqrstuvwxyz';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
+
+//Show user data for tag
+function showUserData() {
+    for (let key in allUserData[user]) {
+        let elF = document.getElementById(`${key}F`);
+        elF.textContent = socialName(allUserData[user][key],`${key}F`);
+
+        if(elF && elF.tagName == "LI" && allUserData[user][key] == "") {
+            elF.remove();
+        } else if (!elF && allUserData[user][key] != ""){
+            addList(el.value,id);
+        }
     }
 }
 
