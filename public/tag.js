@@ -1,8 +1,8 @@
 //Data placeholder
 let user = JSON.parse(sessionStorage.getItem('user')) ?? 'john_doe';
 
-let allUserData;
-getUserData();
+let allUserData = {};
+getUserData().then((data) => {allUserData = data; showUserData();});
 allUserData[user] ? {} : allUserData[user] = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
 
 setInterval(() => {
@@ -24,7 +24,7 @@ function randomString(length) {
 
 //Get user data
 async function getUserData() {
-    allUserData = {};
+    let allUserData = {};
     try {
         const response = await fetch('/api/allUserData');
         allUserData = await response.json();
@@ -33,7 +33,7 @@ async function getUserData() {
     } catch {
         allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
     }
-    showUserData();
+    return allUserData;
 }
 
 //Show user data for tag
@@ -43,7 +43,7 @@ function showUserData() {
         
         if (elF && elF.tagName == "LI" && allUserData[user][key] == "") {
             elF.remove();
-        } else if (elF && allUserData[user][key] != "") {
+        } else if (elF) {
             elF.textContent = socialName(allUserData[user][key],`${key}F`);
         } else if (!elF && allUserData[user][key] != "") {
             addList(allUserData[user][key],`${key}F`);

@@ -8,8 +8,8 @@ if (sessionStorage.getItem('user')){
 
 document.getElementById('user').textContent = user;
 
-let allUserData;
-getUserData();
+let allUserData = {};
+getUserData().then((data) => {allUserData = data; showUserData();});
 
 //Update user data every update
 let inputIdArray = ['name','phone','email','insta','fb','x','linkedin','others'];
@@ -25,6 +25,48 @@ inputIdArray.forEach((id) => {
     });
 });
 
+//Save user data
+async function saveUserData() {
+    try {
+        const response = await fetch('/api/userData', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({[user] : allUserData[user]}),
+        });
+        const userData = await response.json();
+        localStorage.setItem('allUserData', JSON.stringify(userData));
+    } catch {
+        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+    }
+}
+
+//Get user data
+async function getUserData() {
+    let allUserData = {};
+    try {
+        const response = await fetch('/api/allUserData');
+        allUserData = await response.json();
+
+        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+    } catch {
+        allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
+    }
+    return allUserData;
+}
+
+//Check user data and update fields
+function showUserData() {
+    if (!allUserData[user]) {
+        allUserData[user] = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
+    } else {
+        for (let key in allUserData[user]) {
+            let el = document.getElementById(key);
+            el.value = allUserData[user][key];
+            updateField(el,key);
+        }
+    }
+}
+
 function updateField(el,id){
     id = id + "F";
     let elF = document.getElementById(id);
@@ -38,7 +80,7 @@ function updateField(el,id){
 
     if (elF && elF.tagName == "LI" && el.value == "") {
         elF.remove();
-    } else if (elF && el.value != "") {
+    } else if (elF) {
         elF.textContent = socialName(el.value,id);
     } else if (!elF && el.value != "") {
         addList(el.value,id);
@@ -66,48 +108,6 @@ function socialName(text, id) {
             break;
     }
     return text;
-}
-
-//Save user data
-async function saveUserData() {
-    try {
-        const response = await fetch('/api/userData', {
-            method: 'POST',
-            headers: {'content-type': 'application/json'},
-            body: JSON.stringify({[user] : allUserData[user]}),
-        });
-        const userData = await response.json();
-        localStorage.setItem('allUserData', JSON.stringify(userData));
-    } catch {
-        localStorage.setItem('allUserData', JSON.stringify(allUserData));
-    }
-}
-
-//Get user data
-async function getUserData() {
-    allUserData = {};
-    try {
-        const response = await fetch('/api/allUserData');
-        allUserData = await response.json();
-
-        localStorage.setItem('allUserData', JSON.stringify(allUserData));
-    } catch {
-        allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
-    }
-    showUserData();
-}
-
-//Check user data and update fields
-function showUserData() {
-    if (!allUserData[user]) {
-        allUserData[user] = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
-    } else {
-        for (let key in allUserData[user]) {
-            let el = document.getElementById(key);
-            el.value = allUserData[user][key];
-            updateField(el,key);
-        }
-    }
 }
 
 //Add list to ul for socials
