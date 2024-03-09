@@ -5,11 +5,14 @@ if (sessionStorage.getItem('user')){
     window.location.replace("index.html");
 }
 
+let link = 'https://startup.nametag.click/tag.html?user=' + user;
+
 document.getElementById('copy').addEventListener('click', () => {
-    navigator.clipboard.writeText('https://startup.nametag.click/tag.html?user=' + user);
+    navigator.clipboard.writeText(link);
     alert(`Copied link for ${user}`);
 });
 
+generateQR();
 timer();
 
 async function timer() {
@@ -20,12 +23,22 @@ async function timer() {
         document.getElementById('progress').style.width = `${progress}%`;
         if (progress >= 100) {
             clearInterval(interval);
-            progress = 0;
-            document.getElementById('progress').style.width = `${progress}%`;
+            document.getElementById('progress').style.width = `0%`;
             setTimeout(() => {
+                generateQR();
                 timer();
             }, 1000);
         }
     }, 50);
 }
+
+function generateQR() {
+    fetch(`https://api.qrserver.com/v1/create-qr-code/?data=${link}&size=500x500&margin=15`)
+    .then((response) => response.blob())
+    .then((data) => {
+        const imgEl = document.getElementById('qr');
+        imgEl.style.filter = 'blur(0px)';
+        imgEl.setAttribute('src', URL.createObjectURL(data));      
+    });
+  }
 
