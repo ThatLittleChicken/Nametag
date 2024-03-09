@@ -1,7 +1,8 @@
 //Data placeholder
 let user = JSON.parse(sessionStorage.getItem('user')) ?? 'john_doe';
 
-let allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
+let allUserData;
+getUserData();
 allUserData[user] ? {} : allUserData[user] = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
 
 setInterval(() => {
@@ -19,6 +20,20 @@ function randomString(length) {
       counter += 1;
     }
     return result;
+}
+
+//Get user data
+async function getUserData() {
+    allUserData = {};
+    try {
+        const response = await fetch('/api/allUserData');
+        allUserData = await response.json();
+
+        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+    } catch {
+        allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
+    }
+    showUserData();
 }
 
 //Show user data for tag
