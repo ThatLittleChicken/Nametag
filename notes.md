@@ -62,3 +62,7 @@ DNS records are used to domain names to IP addresses (A records) or other domain
 - `|` - Take the output from the command on the left and pipe, or pass, it to the command on the right
 - `>` - Redirect output to a file. Overwrites the file if it exists
 - `>>` - Redirect output to a file. Appends if the file exists
+
+## curl
+- `curl -X GET localhost:3000/api/allUserData`
+- `curl -X POST localhost:3000/api/userData -H -H 'Content-Type: application/json' '{"":{"":"","":"",...}}'`
