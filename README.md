@@ -64,3 +64,11 @@ This deliverable implemented JavaScript, the application works by storing in loc
 - Database - Stores user info for tag and retrieves them  on launch. Data is stored on local storage and will be replaced with the database.
 - WebSocket - setInterval periodically counts down for share link and updates user info on tag page. This will be replaced with WebSocket.
 - Application logic - The MyTag preview changes based on new input. Share page links to Tag page and gets user info, displaying it.
+
+## Service Deliverable
+This deliverable added backend endpoints and calls to endpoints.
+- Node.js/Express HTTP service - 
+- Static middleware for frontend - 
+- Calls to third party endpoints - 3rd party API calls are done to generate QR code for links.
+- Backend service endpoints - Backend service endpoints store all user data and merges them.
+- Frontend calls service endpoints - Fetched user data from backend service endpoints.
