@@ -7,10 +7,10 @@ if (sessionStorage.getItem('user')){
 
 let link = 'https://startup.nametag.click/tag.html?user=' + user;
 
-document.getElementById('copy').addEventListener('click', () => {
+function copyLink() {
     navigator.clipboard.writeText(link);
     alert(`Copied link for ${user}`);
-});
+}
 
 generateQR();
 timer();

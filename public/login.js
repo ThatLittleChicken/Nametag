@@ -1,11 +1,8 @@
-const signup = document.getElementById("signB");
-const login = document.getElementById("loginB");
-
 let loginMap = localStorage.getItem('loginMap') ?
 JSON.parse(localStorage.getItem('loginMap')) : [];
 
 
-signup.addEventListener("click", (e) => {
+function signUp(e){
     e.preventDefault();
     let username = document.getElementById("username").value;
 	let password = document.getElementById("password").value;
@@ -23,9 +20,9 @@ signup.addEventListener("click", (e) => {
             alert("Successfully signed up, please login to continue");
         }
     }
-});
+}
   
-login.addEventListener("click", (e) => {
+function login(e){
     e.preventDefault();
     let username = document.getElementById("username").value;
     let password = document.getElementById("password").value;
@@ -43,4 +40,4 @@ login.addEventListener("click", (e) => {
             window.location.replace("mytag.html");
         }
     }
-});
+}
