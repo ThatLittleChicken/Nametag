@@ -67,8 +67,8 @@ This deliverable implemented JavaScript, the application works by storing in loc
 
 ## Service Deliverable
 This deliverable added backend endpoints and calls to endpoints.
-- Node.js/Express HTTP service - 
-- Static middleware for frontend - 
+- Node.js/Express HTTP service - Complete
+- Static middleware for frontend - Complete
 - Calls to third party endpoints - 3rd party API calls are done to generate QR code for links.
 - Backend service endpoints - Backend service endpoints store all user data and merges them.
 - Frontend calls service endpoints - Fetched user data from backend service endpoints.
