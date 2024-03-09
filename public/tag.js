@@ -25,12 +25,13 @@ function randomString(length) {
 function showUserData() {
     for (let key in allUserData[user]) {
         let elF = document.getElementById(`${key}F`);
-        elF.textContent = socialName(allUserData[user][key],`${key}F`);
-
-        if(elF && elF.tagName == "LI" && allUserData[user][key] == "") {
+        
+        if (elF && elF.tagName == "LI" && allUserData[user][key] == "") {
             elF.remove();
-        } else if (!elF && allUserData[user][key] != ""){
-            addList(el.value,id);
+        } else if (elF && allUserData[user][key] != "") {
+            elF.textContent = socialName(allUserData[user][key],`${key}F`);
+        } else if (!elF && allUserData[user][key] != "") {
+            addList(allUserData[user][key],`${key}F`);
         }
     }
 }
@@ -62,6 +63,7 @@ function socialName(text, id) {
 const ul = document.querySelector('ul');
 
 function addList(text,id){
+    text = socialName(text,id);
     const li = document.createElement('li')
     li.textContent = text;
     li.id = id;

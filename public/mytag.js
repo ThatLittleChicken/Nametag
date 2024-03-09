@@ -39,18 +39,20 @@ function updateField(el,id){
     id = id + "F";
     let elF = document.getElementById(id);
 
-    if(id == "phoneF"){
+    if (id == "phoneF") {
         el.value = el.value.replace(/[^(0-9\(\)\-) ]/g, '');
     }
-    if(id == "emailF"){
+    if (id == "emailF") {
         el.value = el.value.replace(/[^a-zA-Z0-9@.]/g, '');
     }
-    if(elF && elF.tagName == "LI" && el.value == "") {
+
+    if (elF && elF.tagName == "LI" && el.value == "") {
         elF.remove();
-    } else if (!elF && el.value != ""){
+    } else if (elF && el.value != "") {
+        elF.textContent = socialName(el.value,id);
+    } else if (!elF && el.value != "") {
         addList(el.value,id);
-    }
-    elF.textContent = socialName(el.value,id);
+    } 
 }
 
 function socialName(text, id) {
@@ -80,6 +82,7 @@ function socialName(text, id) {
 const ul = document.querySelector('ul');
 
 function addList(text,id){
+    text = socialName(text,id);
     const li = document.createElement('li')
     li.textContent = text;
     li.id = id;
