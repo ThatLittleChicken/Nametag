@@ -8,18 +8,8 @@ if (sessionStorage.getItem('user')){
 
 document.getElementById('user').textContent = user;
 
-//Get user data from local storage
-let allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
-
-if (!allUserData[user]) {
-    allUserData[user] = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
-} else {
-    for (let key in allUserData[user]) {
-        let el = document.getElementById(key);
-        el.value = allUserData[user][key];
-        updateField(el,key);
-    }
-}
+let allUserData;
+getUserData();
 
 //Update user data every update
 let inputIdArray = ['name','phone','email','insta','fb','x','linkedin','others'];
@@ -30,7 +20,7 @@ inputIdArray.forEach((id) => {
         el.addEventListener(event, () => {
             updateField(el,id);
             allUserData[user][id] = document.getElementById(id).value;
-            localStorage.setItem('allUserData', JSON.stringify(allUserData));
+            saveUserData();
         });
     });
 });
@@ -76,6 +66,48 @@ function socialName(text, id) {
             break;
     }
     return text;
+}
+
+//Save user data
+async function saveUserData() {
+    try {
+        const response = await fetch('/api/userData', {
+            method: 'POST',
+            headers: {'content-type': 'application/json'},
+            body: JSON.stringify({[user] : allUserData[user]}),
+        });
+        const userData = await response.json();
+        localStorage.setItem('allUserData', JSON.stringify(userData));
+    } catch {
+        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+    }
+}
+
+//Get user data
+async function getUserData() {
+    allUserData = {};
+    try {
+        const response = await fetch('/api/allUserData');
+        allUserData = await response.json();
+
+        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+    } catch {
+        allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
+    }
+    showUserData();
+}
+
+//Check user data and update fields
+function showUserData() {
+    if (!allUserData[user]) {
+        allUserData[user] = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
+    } else {
+        for (let key in allUserData[user]) {
+            let el = document.getElementById(key);
+            el.value = allUserData[user][key];
+            updateField(el,key);
+        }
+    }
 }
 
 //Add list to ul for socials

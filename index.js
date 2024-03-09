@@ -14,11 +14,28 @@ app.use(express.static('public'));
 var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
+// Get user data
+apiRouter.get('/allUserData', (_req, res) => {
+    res.send(allUserData);
+});
+
+// Save user data
+apiRouter.post('/userData', (req, res) => {
+    allUserData = updateUserData(req.body, allUserData);
+    res.send(allUserData);
+});
+
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {
     res.sendFile('index.html', { root: 'public' });
-  });
+});
   
 app.listen(port, () => {
-console.log(`Listening on port ${port}`);
+    console.log(`Listening on port ${port}`);
 });
+
+let allUserData = {};
+function updateUserData(newUserData, allUserData) {
+    allUserData = Object.assign(allUserData, newUserData);
+    return allUserData;
+}
