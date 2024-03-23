@@ -1,6 +1,6 @@
 //Get current user from session storage
-if (sessionStorage.getItem('user')){
-    var user = JSON.parse(sessionStorage.getItem('user'));
+if (sessionStorage.getItem('username')){
+    var user = sessionStorage.getItem('username');
 } else {
     alert("Please login to continue");
     window.location.replace("index.html");
@@ -8,8 +8,11 @@ if (sessionStorage.getItem('user')){
 
 document.getElementById('user').textContent = user;
 
-let allUserData = {};
-getUserData().then((data) => {allUserData = data; showUserData();});
+let userData = {};
+getUserData(user).then((data) => {
+    userData = data; 
+    showUserData();
+});
 
 //Update user data every update
 let inputIdArray = ['name','phone','email','insta','fb','x','linkedin','others'];
@@ -19,7 +22,7 @@ inputIdArray.forEach((id) => {
     [ "input", "keydown", "keyup", "drop", "focusout" ].forEach(function(event) {
         el.addEventListener(event, () => {
             updateField(el,id);
-            allUserData[user][id] = document.getElementById(id).value;
+            userData[id] = document.getElementById(id).value;
             saveUserData();
         });
     });
@@ -31,39 +34,40 @@ async function saveUserData() {
         const response = await fetch('/api/userData', {
             method: 'POST',
             headers: {'content-type': 'application/json'},
-            body: JSON.stringify({[user] : allUserData[user]}),
+            body: JSON.stringify({username : user, ...userData}),
         });
-        const userData = await response.json();
-        localStorage.setItem('allUserData', JSON.stringify(userData));
+        userData = await response.json();
+        localStorage.setItem('userData', JSON.stringify(userData));
     } catch {
-        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+        localStorage.setItem('userData', JSON.stringify(userData));
     }
 }
 
 //Get user data
-async function getUserData() {
-    let allUserData = {};
+async function getUserData(user) {
+    let userData = {};
     try {
-        const response = await fetch('/api/allUserData');
-        allUserData = await response.json();
+        const response = await fetch(`/api/userData?username=${user}`);
+        userData = await response.json();
 
-        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+        if (response.status == 404) {
+            userData = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
+        }
+         
+        localStorage.setItem('userData', JSON.stringify(userData));
     } catch {
-        allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
+        userData = localStorage.getItem('userData') ?? {};
     }
-    return allUserData;
+    return userData;
 }
 
 //Check user data and update fields
 function showUserData() {
-    if (!allUserData[user]) {
-        allUserData[user] = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
-    } else {
-        for (let key in allUserData[user]) {
-            let el = document.getElementById(key);
-            el.value = allUserData[user][key];
-            updateField(el,key);
-        }
+    for (let key in userData) {
+        let el = document.getElementById(key);
+        if (!el) continue;
+        el.value = userData[key];
+        updateField(el,key);
     }
 }
 

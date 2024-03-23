@@ -71,40 +71,36 @@ apiRouter.get('/user/:username', async (req, res) => {
     res.status(404).send({ msg: 'Unknown' });
 });
 
-// secureApiRouter verifies credentials for endpoints
-var secureApiRouter = express.Router();
-apiRouter.use(secureApiRouter);
+// // secureApiRouter verifies credentials for endpoints
+// var secureApiRouter = express.Router();
+// apiRouter.use(secureApiRouter);
 
-secureApiRouter.use(async (req, res, next) => {
-  authToken = req.cookies[authCookieName];
-  const user = await DB.getUserByToken(authToken);
-  if (user) {
-    next();
-  } else {
-    res.status(401).send({ msg: 'Unauthorized' });
-  }
-});
-
-/* // Get all user data
-apiRouter.get('/allUserData', (_req, res) => {
-    res.send(allUserData);
-}); */
+// secureApiRouter.use(async (req, res, next) => {
+//   authToken = req.cookies[authCookieName];
+//   const user = await DB.getUserByToken(authToken);
+//   if (user) {
+//     next();
+//   } else {
+//     res.status(401).send({ msg: 'Unauthorized' });
+//   }
+// });
 
 // Get user data
-secureApiRouter.get('/userData', async (req, res) => {
-    const user = await DB.getUser(req.body.username);
-    if (user) {
-        res.send(user.data);
+apiRouter.get('/userData', async (req, res) => {
+    const userData = await DB.getUserData(req.query.username);
+    if (userData) {
+        res.send(userData);
         return;
     }
-    res.status(404).send({ msg: 'Unknown' });
+    //res.status(404).send({ msg: 'Unknown' });
 });
 
 // Save user data
-secureApiRouter.post('/userData', async (req, res) => {
-    const userData = {...req.body, ip: req.ip};
-    await DB.addUserData(userData);
-    res.send(allUserData);
+apiRouter.post('/userData', async (req, res) => {
+    let userData = {...req.body, ip: req.ip};
+    delete userData._id;
+    await DB.saveUserData(userData);
+    res.send(userData);
 });
 
 // Default error handler

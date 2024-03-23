@@ -13,10 +13,10 @@ const dataCollection = db.collection('data');
 (async function testConnection() {
     await client.connect();
     await db.command({ ping: 1 });
-  })().catch((ex) => {
+})().catch((ex) => {
     console.log(`Unable to connect to database with ${url} because ${ex.message}`);
     process.exit(1);
-  });
+});
   
 function getUser(username) {
     return userCollection.findOne({ username: username });
@@ -40,7 +40,7 @@ async function createUser(username, password) {
     return user;
 }
 
-function addUserData(data) {
+function saveUserData(data) {
     return dataCollection.updateOne({ username: data.username }, { $set: data }, { upsert: true });
 }
 
@@ -52,6 +52,6 @@ module.exports = {
     getUser,
     getUserByToken,
     createUser,
-    addUserData,
+    saveUserData,
     getUserData
 };
