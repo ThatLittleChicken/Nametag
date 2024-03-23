@@ -75,8 +75,8 @@ This deliverable added backend endpoints and calls to endpoints.
 
 ## DB/Login Deliverable
 In this deliverable, users info are associated to their account and persistently stored on the Database.
-- MongoDB Atlas database created - done!
-- Stores data in MongoDB - done!
+- MongoDB Atlas database created - Complete
+- Stores data in MongoDB - Complete
 - User registration - Creates a new account in the database.
 - Existing user - Stores and updates user info for each existing user.
 - Use MongoDB to store credentials - Passwords are hashed and stored securely on the database.
