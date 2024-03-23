@@ -1,43 +1,59 @@
-let loginMap = localStorage.getItem('loginMap') ?
-JSON.parse(localStorage.getItem('loginMap')) : [];
+const username = sessionStorage.getItem('username');
 
-
-function signUp(e){
+async function signUp(e){
     e.preventDefault();
-    let username = document.getElementById("username").value;
-	let password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+	const password = document.getElementById("password").value;
 
     if (username == "" || password == "") {
         alert("Please enter username and password");
     } else if (password.length < 8) {
         alert("Password must be at least 8 characters long");
     } else {
-        if (loginMap.some((user) => user[0] == username)) {
+        const response = await fetch(`/api/auth/signup`, {
+            method: 'post',
+            body: JSON.stringify({ username: username, password: password }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+
+        if (response.ok) {
+            sessionStorage.setItem('username', username);
+            alert("Successfully signed up");
+            window.location.replace('mytag.html');
+        } else if (response.status == 409) {
             alert("Username already exists");
         } else {
-            loginMap.push([username, password]);
-            localStorage.setItem('loginMap', JSON.stringify(loginMap));
-            alert("Successfully signed up, please login to continue");
+            alert(`Error: ${response.json().msg}`);
         }
     }
 }
   
-function login(e){
+async function login(e){
     e.preventDefault();
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
     if (username == "" || password == "") {
         alert("Please enter username and password");
     } else {
-        if (!loginMap.some((user) => user[0] == username)) {
-            alert("Username does not exist");
-        } else if (!loginMap.some((user) => user[0] == username && user[1] == password)) {
-            alert("Incorrect password");
-        } else if (loginMap.some((user) => user[0] == username && user[1] == password)) {
-            sessionStorage.setItem('user', JSON.stringify(username));
+        const response = await fetch(`/api/auth/login`, {
+            method: 'post',
+            body: JSON.stringify({ username: username, password: password }),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        
+        if (response.ok) {
+            sessionStorage.setItem('username', username);
             alert("Successfully logged in");
-            window.location.replace("mytag.html");
+            window.location.replace('mytag.html');
+        } else if (response.status == 401 || response.status == 404) {
+            alert("Incorrect password or username does not exist");
+        } else {
+            alert(`Error: ${response.json().msg}`);
         }
     }
 }
