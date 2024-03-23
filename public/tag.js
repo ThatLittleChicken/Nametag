@@ -88,12 +88,12 @@ function addList(text,id){
     li.textContent = text;
     li.id = id;
     ul.appendChild(li);
-  }
+}
 
 //Get query string
 function getUserQueryString() {
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
-      });
+    });
     return params.user;
 }

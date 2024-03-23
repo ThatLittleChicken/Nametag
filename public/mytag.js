@@ -123,5 +123,5 @@ function addList(text,id){
     li.textContent = text;
     li.id = id;
     ul.appendChild(li);
-  }
+}
 
