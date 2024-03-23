@@ -1,5 +1,5 @@
-if (sessionStorage.getItem('user')){
-    var user = JSON.parse(sessionStorage.getItem('user'));
+if (sessionStorage.getItem('username')){
+    var user = JSON.parse(sessionStorage.getItem('username'));
 } else {
     alert("Please login to continue");
     window.location.replace("index.html");

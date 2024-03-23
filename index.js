@@ -71,32 +71,28 @@ apiRouter.get('/user/:username', async (req, res) => {
     res.status(404).send({ msg: 'Unknown' });
 });
 
-// // secureApiRouter verifies credentials for endpoints
-// var secureApiRouter = express.Router();
-// apiRouter.use(secureApiRouter);
-
-// secureApiRouter.use(async (req, res, next) => {
-//   authToken = req.cookies[authCookieName];
-//   const user = await DB.getUserByToken(authToken);
-//   if (user) {
-//     next();
-//   } else {
-//     res.status(401).send({ msg: 'Unauthorized' });
-//   }
-// });
-
 // Get user data
 apiRouter.get('/userData', async (req, res) => {
     const userData = await DB.getUserData(req.query.username);
-    if (userData) {
-        res.send(userData);
-        return;
-    }
-    //res.status(404).send({ msg: 'Unknown' });
+    res.send(userData);
+});
+
+// secureApiRouter verifies credentials for endpoints
+var secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.use(async (req, res, next) => {
+  authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
 });
 
 // Save user data
-apiRouter.post('/userData', async (req, res) => {
+secureApiRouter.post('/userData', async (req, res) => {
     let userData = {...req.body, ip: req.ip};
     delete userData._id;
     await DB.saveUserData(userData);

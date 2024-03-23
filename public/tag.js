@@ -1,12 +1,15 @@
-//Data placeholder
-let user = JSON.parse(sessionStorage.getItem('user')) ?? 'john_doe';
+let user = getUserQueryString();
+let userData = {};
 
-let allUserData = {};
-getUserData().then((data) => {allUserData = data; showUserData();});
-allUserData[user] ? {} : allUserData[user] = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
+if (user) {
+    getUserData().then((data) => {userData = JSON.parse(data); showUserData();});
+} else {
+    userData = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
+    showUserData();
+}
 
 setInterval(() => {
-    allUserData[user].name = `${randomString(Math.random()*10)} ${randomString(Math.random()*10)}`;
+    userData.name = `${randomString(Math.random()*10)} ${randomString(Math.random()*10)}`;
     showUserData();
 }, 1000);
 
@@ -24,30 +27,31 @@ function randomString(length) {
 
 //Get user data
 async function getUserData() {
-    let allUserData = {};
+    let userData = {};
     try {
-        const response = await fetch('/api/allUserData');
-        allUserData = await response.json();
-
-        localStorage.setItem('allUserData', JSON.stringify(allUserData));
+        const response = await fetch(`/api/userData?username=${user}`);
+        userData = await response.json();
+        
+        localStorage.setItem('userData', JSON.stringify(userData));
     } catch {
-        allUserData = JSON.parse(localStorage.getItem('allUserData')) ?? {};
+        userData = localStorage.getItem('userData') ?? {};
     }
-    return allUserData;
+    return userData;
 }
 
 //Show user data for tag
 function showUserData() {
-    for (let key in allUserData[user]) {
+    for (let key in userData) {
+        if (key == "username" || key == "ip") continue;
         let elF = document.getElementById(`${key}F`);
         
-        if (elF && elF.tagName == "LI" && allUserData[user][key] == "") {
+        if (elF && elF.tagName == "LI" && userData[key] == "") {
             elF.remove();
         } else if (elF) {
-            elF.textContent = socialName(allUserData[user][key],`${key}F`);
-        } else if (!elF && allUserData[user][key] != "") {
-            addList(allUserData[user][key],`${key}F`);
-        }
+            elF.textContent = socialName(userData[key],`${key}F`);
+        } else if (!elF && userData[key] != "") {
+            addList(userData[key],`${key}F`);
+        } 
     }
 }
 
@@ -84,3 +88,11 @@ function addList(text,id){
     li.id = id;
     ul.appendChild(li);
   }
+
+//Get query string
+function getUserQueryString() {
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+    return params.user;
+}
