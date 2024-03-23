@@ -1,6 +1,7 @@
+//Get user
 let user = getUserQueryString();
-let userData = {};
 
+let userData = {};
 if (user) {
     getUserData().then((data) => {userData = JSON.parse(data); showUserData();});
 } else {
