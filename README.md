@@ -72,3 +72,12 @@ This deliverable added backend endpoints and calls to endpoints.
 - Calls to third party endpoints - 3rd party API calls are done to generate QR code for links.
 - Backend service endpoints - Backend service endpoints store all user data and merges them.
 - Frontend calls service endpoints - Fetched user data from backend service endpoints.
+
+## DB/Login Deliverable
+In this deliverable, users info are associated to their account and persistently stored on the Database.
+- MongoDB Atlas database created - done!
+- Stores data in MongoDB - done!
+- User registration - Creates a new account in the database.
+- Existing user - Stores and updates user info for each existing user.
+- Use MongoDB to store credentials - Passwords are hashed and stored securely on the database.
+- Restricts functionality - Users can only update their information when logged in.
