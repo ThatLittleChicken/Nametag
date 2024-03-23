@@ -41,7 +41,7 @@ async function createUser(username, password) {
 }
 
 function addUserData(data) {
-    dataCollection.insertOne(data);
+    return dataCollection.updateOne({ username: data.username }, { $set: data }, { upsert: true });
 }
 
 function getUserData(username) {
