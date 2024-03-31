@@ -8,13 +8,40 @@ if (sessionStorage.getItem('username')){
 
 let link = 'https://startup.nametag.click/tag.html?user=' + user;
 
-function copyLink() {
-    navigator.clipboard.writeText(link);
-    alert(`Copied link for ${user}`);
-}
-
+let socket = configWebSocket();
 generateQR();
 timer();
+
+function configWebSocket() {
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+    socket.onopen = (event) => {
+        console.log('Connected to server');
+    };
+    socket.onclose = (event) => {
+        console.log('Disconnected from server');
+    };
+    socket.onmessage = async (event) => {
+        if (event.data.charAt(0) == 'F') {
+            console.log('Failed to generate tmpTagId');
+        } else {
+            console.log(event.data.substring(1));
+        }
+        //const msg = JSON.parse(await event.data.text());
+        //console.log(msg);
+    };
+    return socket;
+}
+
+function reqNewTag(socket) {
+    fetch(`/api/user/${user}`)
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.authenticated) {
+            socket.send(JSON.stringify(data.username));
+        }
+    });
+}
 
 async function timer() {
     let progress = 0;
@@ -41,7 +68,12 @@ function generateQR() {
         imgEl.style.filter = 'blur(0px)';
         imgEl.setAttribute('src', URL.createObjectURL(data));      
     });
-  }
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(link);
+    alert(`Copied link for ${user}`);
+}
 
 //animations
 const navbar = document.querySelector('nav');

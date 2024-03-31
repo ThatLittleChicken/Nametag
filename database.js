@@ -48,10 +48,15 @@ function getUserData(username) {
     return dataCollection.findOne({ username: username });
 }
 
+function deleteTmpTagId(username) {
+    return dataCollection.updateOne({ username: username }, { $unset: { tmpTagId: '' } });
+}
+
 module.exports = {
     getUser,
     getUserByToken,
     createUser,
     saveUserData,
-    getUserData
+    getUserData,
+    deleteTmpTagId,
 };

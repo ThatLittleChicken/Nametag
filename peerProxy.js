@@ -1,5 +1,6 @@
 const { WebSocketServer } = require('ws');
 const uuid = require('uuid');
+const DB = require('./database.js');
 
 function peerProxy(httpServer) {
     // Create a websocket object
@@ -23,8 +24,11 @@ function peerProxy(httpServer) {
         ws.on('message', function message(data) {
             connections.forEach((c) => {
                 if (c.id == connection.id) {
-                    c.ws.send(data);
-                    console.log(data);
+                    const user = data.toString().slice(1,-1);
+                    const tmpTagId = (Math.random()*Date.now()/1e13).toString(36).slice(2);
+                    generateTmpTagId(user, tmpTagId).then((saved) => { 
+                        c.ws.send(saved + tmpTagId);
+                    });
                 }
             });
         });
@@ -56,6 +60,18 @@ function peerProxy(httpServer) {
             }
         });
     }, 10000);
+}
+
+async function generateTmpTagId(user, tmpTagId) {
+    let saved = "F";
+    await DB.saveUserData({username: user, tmpTagId: tmpTagId})
+    .then(() => {saved = "T";})
+    .catch(() => {saved = "F";});
+
+    // setTimeout(() => {
+    //     DB.deleteTmpTagId(tmpTagId);
+    // }, 60000);
+    return saved;
 }
 
 module.exports = { peerProxy };
