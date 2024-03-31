@@ -15,7 +15,15 @@ const timerTime = 60000;
 
 let socket = configWebSocket();
 
-reqNewTag(socket);
+// Check if tmpTagId is still valid
+if (new Date().getTime() < localStorage.getItem('expireTime')) {
+    tmpTagId = localStorage.getItem('tmpTagId');
+    link = 'https://startup.nametag.click/tag.html?tmpId=' + tmpTagId;
+    generateQR();
+    timer(timerTime, localStorage.getItem('expireTime')-timerTime);
+} else {
+    reqNewTag(socket);
+}
 
 function configWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
