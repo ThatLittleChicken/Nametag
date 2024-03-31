@@ -66,3 +66,6 @@ DNS records are used to domain names to IP addresses (A records) or other domain
 ## curl
 - `curl -X GET 'localhost:3000/api/allUserData'`
 - `curl -X POST localhost:3000/api/userData -H 'Content-Type: application/json' -d '{"":""}'`
+
+## Using deployService.sh
+example: `./deployService.sh -k ~/keys/production.pem -h yourdomain.click -s simon`
