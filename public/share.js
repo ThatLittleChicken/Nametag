@@ -1,3 +1,4 @@
+//Get current user from session storage
 if (sessionStorage.getItem('username')){
     var user = sessionStorage.getItem('username');
     document.querySelector('body').classList.remove('d-none');
@@ -6,11 +7,15 @@ if (sessionStorage.getItem('username')){
     window.location.replace("index.html");
 }
 
-let link = 'https://startup.nametag.click/tag.html?user=' + user;
+document.querySelector('h1').textContent = `${user}'s NameTag`;
+
+let tmpTagId = '';
+let link = '';
+const timerTime = 60000;
 
 let socket = configWebSocket();
-generateQR();
-timer();
+
+reqNewTag(socket);
 
 function configWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
@@ -20,12 +25,16 @@ function configWebSocket() {
     };
     socket.onclose = (event) => {
         console.log('Disconnected from server');
+        localStorage.setItem('tmpTagId', tmpTagId);
     };
     socket.onmessage = async (event) => {
         if (event.data.charAt(0) == 'F') {
             console.log('Failed to generate tmpTagId');
-        } else {
-            console.log(event.data.substring(1));
+        } else if (event.data.charAt(0) == 'T'){
+            tmpTagId = event.data.substring(1);
+            link = 'https://startup.nametag.click/tag.html?tmpId=' + tmpTagId;
+            generateQR();
+            newTimer(timerTime);
         }
         //const msg = JSON.parse(await event.data.text());
         //console.log(msg);
@@ -43,21 +52,27 @@ function reqNewTag(socket) {
     });
 }
 
-async function timer() {
-    let progress = 0;
-    let interval = setInterval(() => {
-        progress += .1;
-        progress = Math.round(progress * 10) / 10;
-        document.getElementById('progress').style.width = `${progress}%`;
-        if (progress >= 100) {
+function newTimer(timerTime) {
+    let beginningDate = new Date().getTime();
+    timer(timerTime, beginningDate);
+
+    localStorage.setItem('expireTime', beginningDate + timerTime);
+}
+
+function timer(timerTime, beginningDate) {  
+    interval = setInterval(progressBar, 100);
+  
+    function progressBar() {
+        var milisFromBegin = new Date().getTime() - beginningDate;
+        var width = Math.floor(milisFromBegin / timerTime * 100);
+        document.getElementById('progress').style.width = `${width}%`;
+  
+        if (width >= 100) {
             clearInterval(interval);
-            document.getElementById('progress').style.width = `0%`;
-            setTimeout(() => {
-                generateQR();
-                timer();
-            }, 1000);
+            document.getElementById('progress').style.width = '0%';
+            reqNewTag(socket);
         }
-    }, 50);
+    }
 }
 
 function generateQR() {

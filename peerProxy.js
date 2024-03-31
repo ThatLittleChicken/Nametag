@@ -68,9 +68,9 @@ async function generateTmpTagId(user, tmpTagId) {
     .then(() => {saved = "T";})
     .catch(() => {saved = "F";});
 
-    // setTimeout(() => {
-    //     DB.deleteTmpTagId(tmpTagId);
-    // }, 60000);
+    setTimeout(() => {
+        DB.deleteTmpTagId(user);
+    }, 60000);
     return saved;
 }
 
