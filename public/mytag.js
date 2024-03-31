@@ -1,6 +1,7 @@
 //Get current user from session storage
 if (sessionStorage.getItem('username')){
     var user = sessionStorage.getItem('username');
+    document.querySelector('body').classList.remove('d-none');
 } else {
     alert("Please login to continue");
     window.location.replace("index.html");
@@ -124,4 +125,3 @@ function addList(text,id){
     li.id = id;
     ul.appendChild(li);
 }
-

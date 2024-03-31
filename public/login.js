@@ -68,3 +68,16 @@ async function getUser(username) {
   
     return null;
 }
+
+//animations
+const navbar = document.querySelector('nav');
+//navbar.style.transition = 'ease-in-out 0.3s';
+window.onscroll = () => {
+    if (window.scrollY > 10) {
+        navbar.style.backgroundColor = 'rgb(255, 255, 255, 1)'
+        navbar.classList.add('border-bottom');
+    } else {
+        navbar.style.backgroundColor = 'rgb(255, 255, 255, 0)'
+        navbar.classList.remove('border-bottom');
+    }
+};

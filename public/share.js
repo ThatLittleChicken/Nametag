@@ -1,5 +1,6 @@
 if (sessionStorage.getItem('username')){
-    var user = JSON.parse(sessionStorage.getItem('username'));
+    var user = sessionStorage.getItem('username');
+    document.querySelector('body').classList.remove('d-none');
 } else {
     alert("Please login to continue");
     window.location.replace("index.html");
@@ -42,3 +43,15 @@ function generateQR() {
     });
   }
 
+//animations
+const navbar = document.querySelector('nav');
+//navbar.style.transition = 'ease-in-out 0.3s';
+window.onscroll = () => {
+    if (window.scrollY > 10) {
+        navbar.style.backgroundColor = 'rgb(255, 255, 255, 1)'
+        navbar.classList.add('border-bottom');
+    } else {
+        navbar.style.backgroundColor = 'rgb(255, 255, 255, 0)'
+        navbar.classList.remove('border-bottom');
+    }
+};
