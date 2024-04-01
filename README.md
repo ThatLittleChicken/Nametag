@@ -81,3 +81,10 @@ In this deliverable, users info are associated to their account and persistently
 - Existing user - Stores and updates user info for each existing user.
 - Use MongoDB to store credentials - Passwords are hashed and stored securely on the database.
 - Restricts functionality - Users can only update their information when logged in.
+
+## WebSocket Deliverable
+This deliverable added WebSocket to regenerate temporary unique IDs to for users to share tags securely.
+- Backend listens for WebSocket connection - Backend listens for new share requests and return unique IDs. It stores the ID in DB to associate sharer's info and deletes it after 10mins.
+- Frontend makes WebSocket connection - Frontend request new share request every 10mins while alive for users to share link.
+- Data sent over WebSocket connection - Unique ID is sent over WebSocket connection to the requester.
+- WebSocket data displayed - Websocket data is only displayed in console log as users are not meant to see them and is used to generate links.
