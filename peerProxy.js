@@ -70,7 +70,7 @@ async function generateTmpTagId(user, tmpTagId) {
 
     setTimeout(() => {
         DB.deleteTmpTagId(user);
-    }, 60000);
+    }, 600000);
     return saved;
 }
 

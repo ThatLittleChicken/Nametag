@@ -11,7 +11,7 @@ document.querySelector('h1').textContent = `${user}'s NameTag`;
 
 let tmpTagId = '';
 let link = '';
-const timerTime = 60000;
+const timerTime = 600000;
 
 let socket = configWebSocket();
 
@@ -72,14 +72,25 @@ function timer(timerTime, beginningDate) {
   
     function progressBar() {
         var milisFromBegin = new Date().getTime() - beginningDate;
-        var width = Math.floor(milisFromBegin / timerTime * 100);
+        var width = milisFromBegin / timerTime * 100;
         document.getElementById('progress').style.width = `${width}%`;
+        showCountdown(timerTime - milisFromBegin);
   
         if (width >= 100) {
             clearInterval(interval);
             document.getElementById('progress').style.width = '0%';
             reqNewTag(socket);
         }
+    }
+}
+
+function showCountdown(milis) {
+    if (milis > 60000*2) {
+        document.querySelector('span').textContent = `${Math.floor(milis/60000)}mins ${Math.floor((milis%60000)/1000)}s`;
+    } else if (milis > 60000) {
+        document.querySelector('span').textContent = `${Math.floor(milis/60000)}min ${Math.floor((milis%60000)/1000)}s`;
+    } else {
+        document.querySelector('span').textContent = `${Math.floor(milis/1000)}s`;
     }
 }
 
