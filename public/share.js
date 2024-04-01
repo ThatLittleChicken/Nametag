@@ -88,8 +88,10 @@ function showCountdown(milis) {
         document.querySelector('span').textContent = `${Math.floor(milis/60000)}mins ${Math.floor((milis%60000)/1000)}s`;
     } else if (milis > 60000) {
         document.querySelector('span').textContent = `${Math.floor(milis/60000)}min ${Math.floor((milis%60000)/1000)}s`;
-    } else {
+    } else if (milis >= 0) {
         document.querySelector('span').textContent = `${Math.floor(milis/1000)}s`;
+    } else {
+        document.querySelector('span').textContent = '0s';
     }
 }
 
@@ -98,7 +100,7 @@ function generateQR() {
     .then((response) => response.blob())
     .then((data) => {
         const imgEl = document.getElementById('qr');
-        imgEl.style.filter = 'blur(0px)';
+        imgEl.style.filter = 'none';
         imgEl.setAttribute('src', URL.createObjectURL(data));      
     });
 }
