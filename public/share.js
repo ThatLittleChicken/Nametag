@@ -15,21 +15,20 @@ const timerTime = 600000;
 
 let socket = configWebSocket();
 
-// Check if tmpTagId is still valid
-if (new Date().getTime() < localStorage.getItem('expireTime')) {
-    tmpTagId = localStorage.getItem('tmpTagId');
-    link = 'https://startup.nametag.click/tag.html?tmpId=' + tmpTagId;
-    generateQR();
-    timer(timerTime, localStorage.getItem('expireTime')-timerTime);
-} else {
-    reqNewTag(socket);
-}
-
 function configWebSocket() {
     const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
     const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
     socket.onopen = (event) => {
         console.log('Connected to server');
+        // Check if tmpTagId is still valid
+        if (new Date().getTime() < localStorage.getItem('expireTime')) {
+            tmpTagId = localStorage.getItem('tmpTagId');
+            link = 'https://startup.nametag.click/tag.html?tmpId=' + tmpTagId;
+            generateQR();
+            timer(timerTime, localStorage.getItem('expireTime')-timerTime);
+        } else {
+            reqNewTag(socket);
+        }
     };
     socket.onclose = (event) => {
         console.log('Disconnected from server');
