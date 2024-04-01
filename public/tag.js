@@ -1,41 +1,22 @@
 //Get user
-let user = getUserQueryString();
+let tmpTagId = getTmpIdQuery();
 
 let userData = {};
-if (user) {
-    getUserData().then((data) => {userData = JSON.parse(data); showUserData();});
+if (tmpTagId) {
+    getUserData().then((data) => {userData = data; showUserData();});
 } else {
     userData = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
     showUserData();
-}
-
-setInterval(() => {
-    userData.name = `${randomString(Math.random()*10)} ${randomString(Math.random()*10)}`;
-    showUserData();
-}, 1000);
-
-function randomString(length) {
-    let result = '';
-    const characters = 'abcdefghijklmnopqrstuvwxyz';
-    const charactersLength = characters.length;
-    let counter = 0;
-    while (counter < length) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      counter += 1;
-    }
-    return result;
 }
 
 //Get user data
 async function getUserData() {
     let userData = {};
     try {
-        const response = await fetch(`/api/userData?username=${user}`);
+        const response = await fetch(`/api/userData/public?tmpTagId=${tmpTagId}`);
         userData = await response.json();
-        
-        localStorage.setItem('userData', JSON.stringify(userData));
     } catch {
-        userData = localStorage.getItem('userData') ?? {};
+        console.log("Error getting user data");
     }
     return userData;
 }
@@ -43,7 +24,7 @@ async function getUserData() {
 //Show user data for tag
 function showUserData() {
     for (let key in userData) {
-        if (key == "username" || key == "ip") continue;
+        if (key == "username" || key == "ip" || key == "tmpTagId" || key == "_id") continue;
         let elF = document.getElementById(`${key}F`);
         
         if (elF && elF.tagName == "LI" && userData[key] == "") {
@@ -90,10 +71,10 @@ function addList(text,id){
     ul.appendChild(li);
 }
 
-//Get query string
-function getUserQueryString() {
+//Get tmpId query string
+function getTmpIdQuery() {
     const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
     });
-    return params.user;
+    return params.tmpId;
 }
