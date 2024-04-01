@@ -3,7 +3,12 @@ let tmpTagId = getTmpIdQuery();
 
 let userData = {};
 if (tmpTagId) {
-    getUserData().then((data) => {userData = data; showUserData();});
+    getUserData().then((data) => {
+        userData = data; 
+        showUserData();
+    }).catch(() => {
+        document.getElementById('nameF').textContent = "Link expired / Tag doesn't exist.";
+    });
 } else {
     userData = {name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''};
     showUserData();
@@ -16,7 +21,7 @@ async function getUserData() {
         const response = await fetch(`/api/userData/public?tmpTagId=${tmpTagId}`);
         userData = await response.json();
     } catch {
-        console.log("Error getting user data");
+        throw new Error('Error getting user data');
     }
     return userData;
 }
