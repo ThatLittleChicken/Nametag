@@ -125,3 +125,13 @@ function addList(text,id){
     li.id = id;
     ul.appendChild(li);
 }
+
+//Logout
+function logout() {
+    fetch('/api/auth/logout', {
+        method: 'delete',
+    }).then(() => {
+        sessionStorage.removeItem('username');
+        window.location.href = 'index.html';
+    });
+}

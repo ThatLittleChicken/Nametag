@@ -121,3 +121,13 @@ window.onscroll = () => {
         navbar.classList.remove('border-bottom');
     }
 };
+
+//Logout
+function logout() {
+    fetch('/api/auth/logout', {
+        method: 'delete',
+    }).then(() => {
+        sessionStorage.removeItem('username');
+        window.location.href = 'index.html';
+    });
+}
