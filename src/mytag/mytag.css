@@ -2,6 +2,15 @@
     height: calc(100dvh - 57px - 73px);
 }
 
+.tag {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+} 
+
+.tag::-webkit-scrollbar {
+    display: none;
+  }
+
 @media (max-width: 767.98px) {
     .overflow-y-scroll {
         max-height: calc((100dvh - 57px - 73px)/2);
@@ -11,5 +20,12 @@
     }
     div.container {
         height: calc((100dvh - 57px - 73px)/2);
+    }
+    .tag {
+        -ms-overflow-style: auto;
+        scrollbar-width: auto;
+    } 
+    .tag::-webkit-scrollbar {
+        display: auto;
     }
 }
