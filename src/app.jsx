@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom';
+import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Login } from './login/login.jsx';
 import { MyTag } from './mytag/mytag.jsx';
 // import { Share } from './share/share';
