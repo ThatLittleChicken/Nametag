@@ -77,10 +77,10 @@ export function Share({ userName, authState }) {
             setWidth(`${milisFromBegin / timerTime * 100}%`);
             showCountdown(timerTime - milisFromBegin);
       
-            if (width >= 100) {
+            if ((milisFromBegin / timerTime)*100 >= 100) {
                 clearInterval(interval);
                 setWidth('0%');
-                reqNewTag(socket);
+                reqNewTag();
             }
         }
     }
