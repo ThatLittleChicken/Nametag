@@ -13,7 +13,3 @@ div.progress {
 .flex-even {
     flex: 1;
 }
-
-#qr {
-    filter: blur(1rem);
-}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthState } from './authState';
 import Button from 'react-bootstrap/Button';
@@ -9,7 +9,7 @@ export function Login({ userName, authState, onAuthChange }) {
     const [password, setPassword] = React.useState("");
     const navigate = useNavigate();
 
-    useEffect(() => {
+    React.useEffect(() => {
         document.title = "Name Tag | Login";
     }, []);
 
@@ -78,7 +78,7 @@ export function Login({ userName, authState, onAuthChange }) {
                             id="username" 
                             placeholder="Username" 
                             value={username}
-                            onChange={(e) => setUserName(e.target.value)} 
+                            onChange={(e) => setUserName(e.target.value.replace(/\s/g, ''))} 
                             className="form-control"
                         />
                     </div>

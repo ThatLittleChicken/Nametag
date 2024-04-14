@@ -15,6 +15,10 @@ export function Share({ userName, authState }) {
         }, []);
     }
 
+    React.useEffect(() => {
+        document.title = "Name Tag | Share";
+    }, []);
+
     const tmpTagId = React.useRef('');
     const link = React.useRef('');
     const timerTime = 600000;
@@ -113,7 +117,7 @@ export function Share({ userName, authState }) {
     return (
         <main className="d-flex flex-column justify-content-center align-items-center">
             <h1 className="mb-2 share">{userName}'s Name Tag</h1>
-            <div className="container d-flex justify-content-center align-items-center">
+            <div className="container d-flex justify-content-center align-items-center h-auto">
                 <img src={qr} alt="Name Tag Link" id="qr" style={{ 'filter': blur }}
                 className="border rounded p-5 mx-5 col-xxl-4 col-xl-4 col-lg-5 col-md-6 col-sm-8 col-10 mx-auto"></img>
             </div>

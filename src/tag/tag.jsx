@@ -9,13 +9,16 @@ export function Tag() {
     const tmpTagId = searchParams.get("tmpId");
 
     React.useEffect(() => {
-        document.title = "Name Tag | My Tag";
         if (tmpTagId) {
             getUserData().then((data) => setUserData(data)).catch(() => setInvalidLink(true));
         } else {
             setUserData({name: 'John Doe', phone: '800 123 4567', email: 'johndoe@gmail.com', insta: '@john_doe', fb: '', x: '', linkedin: '@john_doe', others: ''});
         }
     }, []);
+
+    React.useEffect(() => {
+        document.title = `Name Tag | ${userData["name"] ? userData["name"].split(" ")[0] + '\'s' : ''} Tag`;
+    }, [userData["name"]]);
 
     //Get user data
     async function getUserData() {
@@ -71,7 +74,7 @@ export function Tag() {
 
     return (
         <main className="d-flex flex-column justify-content-around align-items-center">
-            <div className="container">
+            <div className="container h-auto">
                 <div className="border rounded p-5 m-5 col-xxl-6 col-xl-7 col-lg-8 col-md-9 col-sm-10 col-11 mx-auto">
                     <InvalidLink />
                     <h1 id="name" className="">{userData["name"]}</h1>

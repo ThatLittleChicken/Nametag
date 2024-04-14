@@ -1,3 +1,4 @@
 main {
+    min-width: 0;
     flex: 1 calc(100dvh - 57px - 73px);
 }
