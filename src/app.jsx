@@ -94,7 +94,13 @@ function App() {
 }
 
 function NotFound() {
-    return <main className='container-fluid text-center'>404: Return to sender. Address unknown.</main>;
+    return (
+    <main className='d-flex flex-column justify-content-center align-items-center not-found'>
+        <h1>404</h1>
+        <h2>Address unknown</h2>
+        <p>go back. now.</p>
+    </main>
+    );
 }
 
 export default App;

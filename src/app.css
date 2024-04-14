@@ -1,5 +1,7 @@
-
-
 footer {
     background-color: #e3f2fd;
+}
+
+main.not-found {
+    flex: 1 calc(100dvh - 57px - 73px);
 }
