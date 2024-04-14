@@ -76,7 +76,7 @@ export function MyTag({ userName, authState }) {
     React.useEffect(() => {
         let socials = [];
         for (let key in userData) {
-            if (key === 'name' || key === 'phone' || key === 'email' || key === '_id' || key === 'ip' || key === 'username') continue;
+            if (key === 'name' || key === 'phone' || key === 'email' || key === '_id' || key === 'ip' || key === 'username' || key === 'tmpTagId') continue;
             if (userData[key] !== '') {
                 socials.push(
                     <li id={key} key={key}>{socialsName(key, userData[key])}</li>
@@ -143,7 +143,7 @@ export function MyTag({ userName, authState }) {
                         </div>
                     </form>
                 </div>
-                <div className="col-12 col-md-7 d-flex flex-column align-items-center justify-content-center overflow-y-scroll tag">
+                <div className="col-12 col-md-7 d-flex flex-column align-items-center justify-content-center overflow-y-auto tag">
                     <div className="container">
                         <div className="border rounded p-5 m-3 col-xxl-6 col-xl-7 col-lg-8 col-md-10 col-sm-10 mx-auto">
                             <h1 id="name" className="">{userData["name"] ?? "John Doe"}</h1>

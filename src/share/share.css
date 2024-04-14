@@ -1,8 +1,8 @@
 main {
-    flex: 1 calc(100dvh - 57px);
+    flex: 1 calc(100dvh - 57px - 73px);
 }
 
-h1 {
+h1.share {
     margin-top: 72px !important;
 }
 
