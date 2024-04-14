@@ -95,6 +95,10 @@ secureApiRouter.use(async (req, res, next) => {
 // Get user data
 secureApiRouter.get('/userData', async (req, res) => {
   const userData = await DB.getUserData(req.query.username);
+  if (!userData) {
+    res.status(404).send();
+    return;
+  }
   res.send(userData);
 });
 

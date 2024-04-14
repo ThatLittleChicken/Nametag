@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthState } from '../login/authState';
 import './mytag.css';
@@ -8,21 +8,32 @@ export function MyTag({ userName, authState }) {
         const navigate = useNavigate();
 
         alert("Please login to continue");
-        useEffect(() => {
+        React.useEffect(() => {
             navigate('/');
         }, []);
     }
 
-    useEffect(() => {
-        document.title = "Name Tag | Login";
+    const [userData, setUserData] = React.useState({});
+
+    React.useEffect(() => {
+        document.title = "Name Tag | My Tag";
+        getUserData(userName).then((data) => setUserData(data));
     }, []);
 
-    const [userData, setUserData] = React.useState({});
-    getUserData(userName).then((data) => setUserData(data));
-
+    //Update user data
     function updateData(e) {
-        saveUserData({...userData, [e.target.id]: e.target.value});
-        setUserData(userData);
+        e.preventDefault();
+
+        if (e.target.id === 'phone') {
+            e.target.value = e.target.value.replace(/[^(0-9\(\)\-) ]/g, '');
+        } else if (e.target.id === 'email') {
+            e.target.value = e.target.value.replace(/[^(a-zA-Z0-9@.)]/g, '');
+        }
+
+        if (userData[e.target.id] !== e.target.value) {
+            saveUserData({...userData, [e.target.id]: e.target.value});
+            setUserData({...userData, [e.target.id]: e.target.value});
+        }
     }
 
     //Get user data
@@ -30,15 +41,16 @@ export function MyTag({ userName, authState }) {
         let userData = {};
         try {
             const response = await fetch(`/api/userData?username=${user}`);
-            userData = await response.json();
-
-            if (response.status == 404) {
+            if (response.ok) {
+                userData = await response.json();
+            } else if (response.status == 404) {
                 //userData = {name: '', phone: '', email: '', insta: '', fb: '', x: '', linkedin: '', others: ''};
+                userData = {username: user};
             }
-            
             localStorage.setItem('userData', JSON.stringify(userData));
-        } catch {
-            userData = localStorage.getItem('userData') ?? {};
+        } catch (e) {
+            console.log(e);
+            userData = JSON.parse(localStorage.getItem('userData')) ?? {};
         }
         return userData;
     }
@@ -49,12 +61,42 @@ export function MyTag({ userName, authState }) {
             const response = await fetch('/api/userData', {
                 method: 'POST',
                 headers: {'content-type': 'application/json'},
-                body: JSON.stringify({username : user, ...userData}),
+                body: JSON.stringify({username : userName, ...userData}),
             });
             userData = await response.json();
             localStorage.setItem('userData', JSON.stringify(userData));
         } catch {
             localStorage.setItem('userData', JSON.stringify(userData));
+        }
+    }
+
+    //Check user data and update social fields
+    const [socials, setSocials] = React.useState([]); 
+
+    React.useEffect(() => {
+        let socials = [];
+        for (let key in userData) {
+            if (key === 'name' || key === 'phone' || key === 'email' || key === '_id' || key === 'ip' || key === 'username') continue;
+            if (userData[key] !== '') {
+                socials.push(
+                    <li id={key} key={key}>{socialsName(key, userData[key])}</li>
+                );
+            }
+        }
+        setSocials(socials);
+    }, [userData]);
+
+    function socialsName(key, value) {
+        if (key === 'insta') {
+            return `Instagram: @${value}`;
+        } else if (key === 'fb') {
+            return `Facebook: ${value}`;
+        } else if (key === 'x') {
+            return `X/Twitter: ${value}`;
+        } else if (key === 'linkedin') {
+            return `LinkedIn: ${value}`;
+        } else if (key === 'others') {
+            return `Others: ${value}`;
         }
     }
 
@@ -65,55 +107,51 @@ export function MyTag({ userName, authState }) {
                     <p className="m-3 fs-5">Logged in as: <span id="user">{userName}</span></p>
                     <form className="row m-3 g-3">
                         <div className="col-12">
-                            <label for="name" className="form-label">Name</label>
-                            <TagInput name="name" update={updateData} />
+                            <label htmlFor="name" className="form-label">Name</label>
+                            <TagInput name="name" value={userData} update={updateData}/>
                         </div>
 
                         <div className="col-12">
-                            <label for="phone" className="form-label">Phone Number</label>
-                            <TagInput name="phone" update={updateData} />
+                            <label htmlFor="phone" className="form-label">Phone Number</label>
+                            <TagInput name="phone" value={userData} update={updateData}/>
                         </div>
 
                         <div className="col-12">
-                            <label for="email" className="form-label">Email</label>
-                            <TagInput name="email" update={updateData} />
+                            <label htmlFor="email" className="form-label">Email</label>
+                            <TagInput name="email" value={userData} update={updateData}/>
                         </div>
 
                         <div className="col-12">
-                            <label for="insta" className="form-label">Instagram</label>
-                            <TagInput name="insta" update={updateData} />
+                            <label htmlFor="insta" className="form-label">Instagram</label>
+                            <TagInput name="insta" value={userData} update={updateData}/>
                         </div>
                         <div className="col-12">
-                            <label for="fb" className="form-label">Facebook</label>
-                            <TagInput name="fb" update={updateData} />
+                            <label htmlFor="fb" className="form-label">Facebook</label>
+                            <TagInput name="fb" value={userData} update={updateData}/>
                         </div>
                         <div className="col-12">
-                            <label for="x" className="form-label">X/Twitter</label>
-                            <TagInput name="x" update={updateData} />
+                            <label htmlFor="x" className="form-label">X/Twitter</label>
+                            <TagInput name="x" value={userData} update={updateData}/>
                         </div>
                         <div className="col-12">
-                            <label for="linkedin" className="form-label">LinkedIn</label>
-                            <TagInput name="linkedin" update={updateData} />
+                            <label htmlFor="linkedin" className="form-label">LinkedIn</label>
+                            <TagInput name="linkedin" value={userData} update={updateData}/>
                         </div>
                         <div className="col-12">
-                            <label for="others" className="form-label">Other Social Media</label>
-                            <TagInput name="others" update={updateData} />
+                            <label htmlFor="others" className="form-label">Other Social Media</label>
+                            <TagInput name="others" value={userData} update={updateData}/>
                         </div>
                     </form>
                 </div>
                 <div className="col-12 col-md-7 d-flex flex-column align-items-center justify-content-center overflow-y-scroll tag">
                     <div className="container">
                         <div className="border rounded p-5 m-3 col-xxl-6 col-xl-7 col-lg-8 col-md-10 col-sm-10 mx-auto">
-                            <h1 id="nameF" className="">{userData["name"] ?? "John Doe"}</h1>
-                            <h2 id="phoneF" className="=">{userData["phone"] ?? "800 123 4567"}</h2>
+                            <h1 id="name" className="">{userData["name"] ?? "John Doe"}</h1>
+                            <h2 id="phone" className="=">{userData["phone"] ?? "800 123 4567"}</h2>
                             <ul className="">
-                                <li id="instaF">Instagram: @john_doe</li>
-                                <li id="fbF">Facebook: @john_doe</li>
-                                <li id="xF">X/Twitter: @john_doe</li>
-                                <li id="linkedinF">LinkedIn: @john_doe</li>
-                                <li id="othersF">Others: @john_doe</li>
+                                {socials}
                             </ul>
-                            <p id="emailF" className="">johndoe@gmail.com</p>
+                            <p id="emailF" className="">{userData["email"] ?? "johndoe@gmail.com"}</p>
                         </div>
                     </div>
                 </div>
@@ -122,12 +160,13 @@ export function MyTag({ userName, authState }) {
     );
 }
 
-const TagInput = ({ name, update }) => {
+const TagInput = ({ name, value, update }) => {
     return (
         <input 
             type="text" 
             name={name} 
             id={name} 
+            defaultValue={value[name]}
             onChange={(e) => update(e)} 
             onFocus={(e) => update(e)} 
             onBlur={(e) => update(e)} 

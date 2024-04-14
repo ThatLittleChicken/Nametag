@@ -68,10 +68,10 @@ export function Login({ userName, authState, onAuthChange }) {
     return (
         <main className="d-flex flex-column justify-content-around align-items-center">
             <div className="border rounded p-5 m-5">
-                <h1 className="mb-2 pb-1 border-bottom">Name Tag</h1>
+                <h1 className="mb-2 pb-2 border-bottom">Name Tag</h1>
                 <form className="row justify-content-end g-3">
                     <div className="col-md-6">
-                        <label for="username" className="form-label">Username</label>
+                        <label htmlFor="username" className="form-label">Username</label>
                         <input 
                             type="text" 
                             name="username" 
@@ -83,7 +83,7 @@ export function Login({ userName, authState, onAuthChange }) {
                         />
                     </div>
                     <div className="col-md-6">
-                        <label for="password" className="form-label">Password</label>
+                        <label htmlFor="password" className="form-label">Password</label>
                         <input 
                             type="password" 
                             name="password" 
@@ -93,10 +93,10 @@ export function Login({ userName, authState, onAuthChange }) {
                             className="form-control"
                         />
                     </div>
-                    <div className="col-md-auto text-end">
+                    <div className="col-auto text-end">
                         <Button onClick={() => signUp()} className="btn btn-primary">Sign up</Button>
                     </div>
-                    <div className="col-md-auto text-end">
+                    <div className="col-auto text-end">
                         <Button onClick={() => login()} className="btn btn-primary">Login</Button>
                     </div>
                 </form>
