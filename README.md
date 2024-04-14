@@ -37,8 +37,8 @@ The required technologies are used for:
     * getting contact info
     * generating QR code
 - Database/Login - Credentials, names and contact info are securely saved in Database. Users must sign up to create a "name tag".
-- WebSockets - As users update their information, the updates are sent to users viewing their "name tag".
-- React - Application will be ported to React framework. Dynamically create custom link for all "name tags".
+- WebSockets - Generate temporary unique IDs through WebSocket requests for users to share tags securely.
+- React - Application will be ported to React framework. 
 
 ## HTML Deliverable
 This deliverable is built and structured using HTML.
@@ -88,3 +88,10 @@ This deliverable added WebSocket to regenerate temporary unique IDs to for users
 - Frontend makes WebSocket connection - Frontend request new share request every 10mins while alive for users to share link.
 - Data sent over WebSocket connection - Unique ID is sent over WebSocket connection to the requester.
 - WebSocket data displayed - Websocket data is only displayed in console log as users are not meant to see them and is used to generate links.
+
+## React Deliverable
+In this deliverable, the application was ported over to React and Vite.
+- Bundled and transpiled - Complete
+- Components - Login, editing and viewing tags, sharing are all components.
+- Router - Routing between all components.
+- Hooks - Uses multiple hooks like useState, useEffect, useRef, useSearchParams track changes.
