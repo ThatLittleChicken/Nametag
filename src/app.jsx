@@ -3,7 +3,7 @@ import { NavLink, Route, Routes, useNavigate } from 'react-router-dom';
 import { Login } from './login/login.jsx';
 import { MyTag } from './mytag/mytag.jsx';
 import { Share } from './share/share.jsx';
-// import { Tag } from './tag/tag';
+import { Tag } from './tag/tag.jsx';
 import { AuthState } from './login/authState';
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -79,7 +79,7 @@ function App() {
                         authState={authState}
                     />} 
                 />
-                {/* <Route path="tag" element={<Tag />} /> */}
+                <Route path="tag" element={<Tag />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
 

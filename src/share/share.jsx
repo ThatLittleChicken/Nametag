@@ -27,7 +27,7 @@ export function Share({ userName, authState }) {
             // Check if tmpTagId is still valid
             if (new Date().getTime() < localStorage.getItem('expireTime')) {
                 tmpTagId.current = localStorage.getItem('tmpTagId');
-                link.current = `https://startup.nametag.click/tag.html?tmpId=${tmpTagId.current}`;
+                link.current = `https://startup.nametag.click/tag?tmpId=${tmpTagId.current}`;
                 updateQR();
                 timer(timerTime, localStorage.getItem('expireTime')-timerTime);
             } else {
@@ -43,7 +43,7 @@ export function Share({ userName, authState }) {
                 console.log('Failed to generate tmpTagId');
             } else if (event.data.charAt(0) == 'T'){
                 tmpTagId.current = event.data.substring(1);
-                link.current = `https://startup.nametag.click/tag.html?tmpId=${tmpTagId.current}`;
+                link.current = `https://startup.nametag.click/tag?tmpId=${tmpTagId.current}`;
                 updateQR();
                 newTimer(timerTime);
             }
